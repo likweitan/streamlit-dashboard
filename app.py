@@ -1,9 +1,13 @@
 import streamlit as st
 import pandas as pd
 
+import src.models.data_preprocessing as data_preprocessing
+
 import src.pages.home as home
 import src.pages.data_exploration as data_exploration
-
+import src.pages.problem_statistics as problem_statistics
+import src.pages.content_statistics as content_statistics
+import src.pages.user_statistics as user_statistics
 # Streamlit encourages well-structured code, like starting execution in a main() function.
 
 
@@ -12,8 +16,7 @@ def main():
     # Create a text element and let the reader know the data is loading.
     data_load_state = st.sidebar.text('Loading...')
     # Load 10,000 rows of data into the dataframe.
-    with st.spinner('Reading data...'):
-        data = load_data(None)
+    data = load_data(None)
     # Notify the reader that the data was successfully loaded.
     data_load_state.text("")
 
@@ -26,12 +29,19 @@ def main():
     # Once we have the dependencies, add a selector for the app mode on the sidebar.
     st.sidebar.title("Menu")
     option = st.sidebar.selectbox('Please select a page',
-                                  ('Home', 'Data Exploration', 'Content Statistics', 'User Statistics', 'Problem Statistics', 'Check Proficiency'))
+                                  ('Home', 'Problem Statistics', 'Content Statistics', 'User Statistics', 'Check Proficiency'))
+
     if option == "Home":
         home.load()
-    elif option == "Data Exploration":
-        data_exploration.load(data)
+    elif option == "Problem Statistics":
+        with st.spinner('Cleaning data...'):
+            data = data_preprocessing.clean(data)
+        problem_statistics.load(data)
     elif option == "Content Statistics":
+        content_statistics.load(data)
+    elif option == "User Statistics":
+        user_statistics.load(data)
+    elif option == "Check Proficiency":
         readme_text.empty()
 
 
@@ -40,7 +50,7 @@ def load_data(nrows):
     data = [pd.read_csv('https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Info_Content.csv'),
             pd.read_csv(
                 'https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Info_UserData.csv'),
-            pd.read_csv('https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Log_Problem.csv', nrows=10000), ]
+            pd.read_csv('https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Log_Problem.csv'), ]
     return data
 
 
