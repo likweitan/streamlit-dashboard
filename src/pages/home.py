@@ -24,19 +24,4 @@ def load() -> None:
         st.write(" ")
     st.header("🎲 The Application")
     st.write("This application is a Streamlit dashboard hosted on Heroku that can be used to explore "
-             "the results from board game matches that I tracked over the last year.")
-    st.write("There are currently four pages available in the application:")
-    st.subheader("♟ General Statistics ♟")
-    st.markdown("* This gives a general overview of the data including frequency of games over time, "
-                "most games played in a day, and longest break between games.")
-    st.subheader("♟ Player Statistics ♟")
-    st.markdown("* As you play with other people it would be interesting to see how they performed. "
-                "This page allows you to see, per player, an overview of their performance across games.")
-    st.markdown("* This also includes a one-sample Wilcoxon signed-rank test to test if a player performs "
-                "significantly better/worse than the average for one board game.")
-    st.subheader("♟ Head to Head ♟")
-    st.markdown("* I typically play two-player games with my wife and thought it would be nice to include a "
-                "head to head page. This page describes who is the better of two players between and within games.")
-    st.subheader("♟ Explore Games ♟")
-    st.markdown("* This page serves to show statistics per game, like its distribution of scores, frequency of "
-                "matches and best/worst players.")
+             "the results from Junyi Academy Online.")
