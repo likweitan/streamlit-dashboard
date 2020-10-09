@@ -8,15 +8,18 @@ import src.pages.data_exploration as data_exploration
 import src.pages.problem_statistics as problem_statistics
 import src.pages.content_statistics as content_statistics
 import src.pages.user_statistics as user_statistics
+import src.pages.user_activities as user_activities
 # Streamlit encourages well-structured code, like starting execution in a main() function.
 
 
 def main():
+    st.beta_set_page_config(
+        page_title='Assessing the Readiness', page_icon='https://i.ibb.co/vxwPL94/image.png></a>', layout='centered')
     # Download external dependencies.
     # Create a text element and let the reader know the data is loading.
-    data_load_state = st.sidebar.text('Loading...')
+    data_load_state = st.text('Loading...')
     # Load 10,000 rows of data into the dataframe.
-    data = load_data(None)
+    data = load_data()
     # Notify the reader that the data was successfully loaded.
     data_load_state.text("")
 
@@ -29,24 +32,27 @@ def main():
     # Once we have the dependencies, add a selector for the app mode on the sidebar.
     st.sidebar.title("Menu")
     option = st.sidebar.selectbox('Please select a page',
-                                  ('Home', 'Problem Statistics', 'Content Statistics', 'User Statistics', 'Check Proficiency'))
+                                  ('Home', 'Problem Statistics', 'Content Statistics', 'User Statistics', 'User Activities', 'Check Proficiency'))
 
     if option == "Home":
         home.load()
     elif option == "Problem Statistics":
-        with st.spinner('Cleaning data...'):
-            data = data_preprocessing.clean(data)
+        # with st.spinner('Cleaning data...'):
+        #    data = data_preprocessing.clean(data)
         problem_statistics.load(data)
     elif option == "Content Statistics":
         content_statistics.load(data)
     elif option == "User Statistics":
         user_statistics.load(data)
+    elif option == "User Activities":
+        user_activities.load(data)
     elif option == "Check Proficiency":
-        readme_text.empty()
+        st.write('Not yet')
+        st.balloons()
 
 
-@st.cache
-def load_data(nrows):
+@st.cache(persist=True, show_spinner=False)
+def load_data():
     data = [pd.read_csv('https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Info_Content.csv'),
             pd.read_csv(
                 'https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Info_UserData.csv'),
