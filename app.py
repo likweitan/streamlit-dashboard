@@ -48,7 +48,6 @@ def main():
         user_activities.load(data)
     elif option == "Check Proficiency":
         st.write('Not yet')
-        st.balloons()
 
 
 @st.cache(persist=True, show_spinner=False)
