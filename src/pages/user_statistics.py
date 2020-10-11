@@ -10,13 +10,22 @@ def load(data):
     merge_df = merge_all(data[0], data[1], data[2])
     users = find_user(merge_df)
     st.sidebar.header('User')
-    user = st.sidebar.selectbox('Please select an user', users)
-    contents = find_content(user, merge_df)
+    user = st.sidebar.selectbox('Please select an user', ['Student A','Student B','Student C','Student D','Student E'])
+    switcher = {
+        'Student A': "Kpq2q+eKw/O+6/jLs3XJosgmI7weEJxJZdnkKTbbF8I=",
+        'Student B': "0+VU/Zb0Q96uoByuRhl7r9bJuJO6CKWpsmNMEuijSzc=",
+        'Student C': "g8DnYvIqpolw10XlwWeIWv6NbDPByUbmgH8EshJqBns=",
+        'Student D': "kSyUTFlepsYUD723IPL/jEZ520xaKbscrBmNtBUFR1o=",
+        'Student E': "XMFbFA7C49+LRhUddhelfPpA6F5dbOoxeyL3eYbuTlY="
+    }
+    user_id = switcher.get(user,"Invalid")
+    st.write(user_id)
+    contents = find_content(user_id, merge_df)
     st.sidebar.header('Content')
     content = st.sidebar.selectbox('Please select a content', contents)
     # with st.spinner('Plotting...'):
     #    plot_difficulty(user, data[0], data[1], data[2])
-    plot_gender(user, content, data[0], data[1], data[2])
+    plot_gender(user_id, content, data[0], data[1], data[2])
 
     #st.write(average_score(user, merge_df))
 
@@ -30,7 +39,7 @@ def merge_all(info_content_df: pd.DataFrame, info_userdata_df: pd.DataFrame, log
 
 @st.cache(show_spinner=False)
 def find_user(merge_df: pd.DataFrame):
-    users = merge_df.uuid.head(50).values
+    users = merge_df.uuid.head(5).values
     return users
 
 
