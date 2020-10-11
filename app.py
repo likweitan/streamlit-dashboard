@@ -14,7 +14,7 @@ import src.pages.user_activities as user_activities
 
 def main():
     st.beta_set_page_config(
-        page_title='Assessing the Readiness', page_icon='https://i.ibb.co/vxwPL94/image.png></a>', layout='centered')
+        page_title='Assessing the Readiness', page_icon='https://i.ibb.co/vxwPL94/image.png></a>', layout='wide')
     # Download external dependencies.
     # Create a text element and let the reader know the data is loading.
     data_load_state = st.text('Loading...')
