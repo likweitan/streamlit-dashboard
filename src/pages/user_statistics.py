@@ -19,10 +19,19 @@ def load(data):
         'Student E': "XMFbFA7C49+LRhUddhelfPpA6F5dbOoxeyL3eYbuTlY="
     }
     user_id = switcher.get(user,"Invalid")
+
     st.write(user_id)
-    contents = find_content(user_id, merge_df)
-    st.sidebar.header('Content')
-    content = st.sidebar.selectbox('Please select a content', contents)
+    subjects = find_subject(user_id, merge_df)
+    st.sidebar.header('Subjects')
+    subject_id = st.sidebar.selectbox('Please select a subject', subjects)
+
+    topics = find_topic(user_id, subject_id, merge_df)
+    st.sidebar.header('Topics')
+    topic_id = st.sidebar.selectbox('Please select a topic', topics)
+
+    contents = find_content(user_id, subject_id, topic_id, merge_df)
+    st.sidebar.header('Exercise')
+    content = st.sidebar.selectbox('Please select a exercise', contents)
     # with st.spinner('Plotting...'):
     #    plot_difficulty(user, data[0], data[1], data[2])
     plot_gender(user_id, content, data[0], data[1], data[2])
@@ -42,10 +51,19 @@ def find_user(merge_df: pd.DataFrame):
     users = merge_df.uuid.head(5).values
     return users
 
+@st.cache(show_spinner=False)
+def find_subject(user, merge_df: pd.DataFrame):
+    subjects = merge_df.level3_id[merge_df['uuid'] == user].drop_duplicates().values
+    return subjects
 
 @st.cache(show_spinner=False)
-def find_content(user, merge_df: pd.DataFrame):
-    contents = merge_df.ucid[merge_df['uuid'] == user].drop_duplicates().values
+def find_topic(user, subject, merge_df: pd.DataFrame):
+    topics = merge_df.level4_id[(merge_df['uuid'] == user) & (merge_df['level3_id'] == subject)].drop_duplicates().values
+    return topics
+
+@st.cache(show_spinner=False)
+def find_content(user, subject, topic, merge_df: pd.DataFrame):
+    contents = merge_df.ucid[(merge_df['uuid'] == user) & (merge_df['level3_id'] == subject) & (merge_df['level4_id'] == topic)].drop_duplicates().values
     return contents
 
 
