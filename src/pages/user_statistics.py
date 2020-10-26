@@ -24,10 +24,10 @@ def load(data):
     subjects = find_subject(user_id, merge_df)
     test_subjects = []
     for x in range(len(subjects)):
-        test_subjects.append('Course ' + str(x))
+        test_subjects.append('Course ' + str(x+1))
 
-    st.sidebar.header('Subjects')
-    code = st.sidebar.selectbox('Please select a subject', test_subjects)
+    st.sidebar.header('Course')
+    code = st.sidebar.selectbox('Please select a course', test_subjects)
     id = int(code[-1])
     subject_id = subjects[id]
 
@@ -37,12 +37,21 @@ def load(data):
     st.sidebar.header('Topics')
     topic_id = st.sidebar.selectbox('Please select a topic', topics)
 
+
+
     contents = find_content(user_id, subject_id, topic_id, merge_df)
+
+    test_contents = []
+    for x in range(len(contents)):
+        test_contents.append('Exercise ' + str(x+1))
+
     st.sidebar.header('Exercise')
-    content = st.sidebar.selectbox('Please select a exercise', contents)
+    code = st.sidebar.selectbox('Please select a exercise', test_contents)
+    id = int(code[-1])
+    content_id = contents[id]
     # with st.spinner('Plotting...'):
     #    plot_difficulty(user, data[0], data[1], data[2])
-    plot_gender(user_id, content, data[0], data[1], data[2])
+    plot_gender(user_id, content_id, data[0], data[1], data[2])
 
     #st.write(average_score(user, merge_df))
 
