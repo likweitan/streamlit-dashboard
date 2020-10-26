@@ -20,10 +20,18 @@ def load(data):
     }
     user_id = switcher.get(user,"Invalid")
 
-    st.write(user_id)
+
     subjects = find_subject(user_id, merge_df)
+    test_subjects = []
+    for x in range(len(subjects)):
+        test_subjects.append('Course ' + str(x))
+
     st.sidebar.header('Subjects')
-    subject_id = st.sidebar.selectbox('Please select a subject', subjects)
+    code = st.sidebar.selectbox('Please select a subject', test_subjects)
+    id = int(code[-1])
+    subject_id = subjects[id]
+
+
 
     topics = find_topic(user_id, subject_id, merge_df)
     st.sidebar.header('Topics')
