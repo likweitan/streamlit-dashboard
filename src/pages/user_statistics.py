@@ -4,9 +4,10 @@ import altair as alt
 import pandas as pd
 import numpy as np
 
+import random
 
 def load(data):
-    st.title('🎲 User Statistics')
+    st.title('🎲 Student Statistics')
     merge_df = merge_all(data[0], data[1], data[2])
     users = find_user(merge_df)
     st.sidebar.header('User')
@@ -19,6 +20,7 @@ def load(data):
         'Student E': "XMFbFA7C49+LRhUddhelfPpA6F5dbOoxeyL3eYbuTlY="
     }
     user_id = switcher.get(user,"Invalid")
+
 
 
     subjects = find_subject(user_id, merge_df)
@@ -121,12 +123,12 @@ def plot_gender(user, content, info_content_df: pd.DataFrame, info_userdata_df: 
 
     st.altair_chart(scatter_plot, use_container_width=True)
 
-    st.write(learning_path.sort_values(
-        'problem_number').style.apply(highlight_correct, subset=['is_correct']).apply(highlight_level, subset=['level']))
+    #st.write(learning_path.sort_values(
+    #    'problem_number').style.apply(highlight_correct, subset=['is_correct']).apply(highlight_level, subset=['level']))
 
     total_rows = learning_path.shape[0]
     st.write('The user has tried ' + str(total_rows) +
-             ' times for this content.')
+             ' times for this course.')
 
 
 def plot_difficulty(user, info_content_df: pd.DataFrame, info_userdata_df: pd.DataFrame, log_problem_df: pd.DataFrame):

@@ -14,7 +14,7 @@ import src.pages.user_activities as user_activities
 
 def main():
     st.beta_set_page_config(
-        page_title='Assessing the Readiness', page_icon='https://i.ibb.co/vxwPL94/image.png></a>', layout='wide')
+        page_title='Assessing the Readiness', page_icon='https://i.ibb.co/vxwPL94/image.png></a>', layout='centered')
     # Download external dependencies.
     # Create a text element and let the reader know the data is loading.
     data_load_state = st.text('Loading...')
@@ -35,7 +35,7 @@ def main():
                                   ('Home', 'Problem Statistics', 'Content Statistics', 'User Statistics', 'User Activities', 'Check Proficiency'))
 
     if option == "Home":
-        home.load()
+        home.load(data)
     elif option == "Problem Statistics":
         # with st.spinner('Cleaning data...'):
         #    data = data_preprocessing.clean(data)
