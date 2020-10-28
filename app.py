@@ -53,10 +53,10 @@ def main():
 
 @st.cache(persist=True, show_spinner=False)
 def load_data():
-    data = [pd.read_csv('https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Info_Content.csv'),
+    data = [pd.read_csv('https://raw.githubusercontent.com/likweitan/streamlit-dashboard/main/data/Info_Content.csv'),
             pd.read_csv(
-                'https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Info_UserData.csv'),
-            pd.read_csv('https://media.githubusercontent.com/media/likweitan/streamlit-dashboard/main/data/Log_Problem.csv'), ]
+                'https://raw.githubusercontent.com/likweitan/streamlit-dashboard/main/data/Info_UserData.csv'),
+            pd.read_csv('https://raw.githubusercontent.com/likweitan/streamlit-dashboard/main/data/Log_Problem.csv'), ]
     return data
 
 
