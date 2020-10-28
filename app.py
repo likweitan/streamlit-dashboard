@@ -9,6 +9,7 @@ import src.pages.problem_statistics as problem_statistics
 import src.pages.content_statistics as content_statistics
 import src.pages.user_statistics as user_statistics
 import src.pages.user_activities as user_activities
+import src.pages.predictions as predictions
 # Streamlit encourages well-structured code, like starting execution in a main() function.
 
 
@@ -47,7 +48,7 @@ def main():
     elif option == "User Activities":
         user_activities.load(data)
     elif option == "Check Proficiency":
-        st.write('Not yet')
+        predictions.load(data)
 
 
 @st.cache(persist=True, show_spinner=False)
